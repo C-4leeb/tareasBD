@@ -4,7 +4,7 @@ CREATE(primerCliente:Cliente{nombre:'Maicol', apellido:'Vargas', edad:18, provin
 CREATE (segundoCliente:Cliente{nombre:'Marco', apellido:'Polo', edad:32, provincia:'Limón'});
 CREATE (tercerCliente:Cliente{nombre:'Andrei', apellido:'Felipe', edad:96, provincia:'Guanacaste'});
 CREATE (cuartoCliente:Cliente{nombre:'Ernesto', apellido:'Vellarroz', edad:96, provincia:'Cartago'});
-CREATE (quintoCliente:cliente{nombre:'Sofia', apellido:'Matamoros', edad:36, provincia:'Limón'});
+CREATE (quintoCliente:Cliente{nombre:'Sofia', apellido:'Matamoros', edad:36, provincia:'Limón'});
 
 //3. Nodos para representar Sucursales
 //Creando los 4 nodos que representen las sucursales donde los clientes compran los vehículos.
