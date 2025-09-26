@@ -6,6 +6,18 @@ CREATE (tercerCliente:Cliente{nombre:'Andrei', apellido:'Felipe', edad:96, provi
 CREATE (cuartoCliente:Cliente{nombre:'Ernesto', apellido:'Vellarroz', edad:96, provincia:'Cartago'});
 CREATE (quintoCliente:cliente{nombre:'Sofia', apellido:'Matamoros', edad:36, provincia:'Limón'});
 
+//2. Nodos que representan modelos de vehículos
+CREATE (Impreza:Vehiculo {modelo: "Impreza WRX STI", marca: "Subaru", precio: 2700000, añoFabricacion: "2005"})
+CREATE (GTR:Vehiculo {modelo: "Skyline GT-R R34", marca: "Nissan", precio: 4200000, añoFabricacion: "1999"})
+CREATE (RX7:Vehiculo {modelo: "RX-7 FD3S", marca: "Mazda", precio: 3800000, añoFabricacion: "2002"})
+CREATE (Supra:Vehiculo {modelo: "Supra MK4", marca: "Toyota", precio: 4500000, añoFabricacion: "1998"})
+CREATE (Silvia:Vehiculo {modelo: "Silvia S14", marca: "Nissan", precio: 3100000, añoFabricacion: "2001"})
+CREATE (Nissan240:Vehiculo {modelo: "240SX S13", marca: "Nissan", precio: 2300000, añoFabricacion: "1993"})
+CREATE (Trueno:Vehiculo {modelo: "AE86", marca: "Toyota", precio: 3200000, añoFabricacion: "1983"});
+CREATE (EVO:Vehiculo {modelo: "Lancer Evolution VI", marca: "Mitsubishi", precio: 2800000, añoFabricacion: "2000"});
+CREATE (LexusIS:Vehiculo {modelo: "IS200", marca: "Lexus", precio: 2500000, añoFabricacion: "2001"});
+CREATE (NissanZ:Vehiculo {modelo: "350Z", marca: "Nissan", precio: 2700000, añoFabricacion: "2003"});
+
 //3. Nodos para representar Sucursales
 //Creando los 4 nodos que representen las sucursales donde los clientes compran los vehículos.
 CREATE(primerSucursal:Sucursal{nombre:'Veinsa Usados',ubicacion:'San José'});
@@ -13,6 +25,34 @@ CREATE(segundaSucursal:Sucursal{nombre:'Top Cars',ubicacion:'San José'});
 CREATE(terceraSucursal:Sucursal{nombre:'Grupo Q',ubicacion:'San José'});
 CREATE(cuartaSucursal:Sucursal{nombre:'Auto Mio',ubicacion:'San José'});
 
+//4. Relaciones de Compra, enlaza un cliente con un modelo de vehículo que adquiere
+
+MATCH (c1:Cliente {nombre:'Maicol'}), (v1:Vehiculo {modelo:"Impreza WRX STI"})
+CREATE (c1)-[:COMPRA {año:2013}]->(v1);
+
+MATCH (c2:Cliente {nombre:'Marco'}), (v2:Vehiculo {modelo:"Skyline GT-R R34"})
+CREATE (c2)-[:COMPRA {año:2008}]->(v2);
+
+MATCH (c3:Cliente {nombre:'Andrei'}), (v3:Vehiculo {modelo:"RX-7 FD3S"}), (v4:Vehiculo {modelo:"Supra MK4"})
+CREATE (c3)-[:COMPRA {año:2005}]->(v3),
+       (c3)-[:COMPRA {año:2025}]->(v4);
+
+MATCH (c4:Cliente {nombre:'Ernesto'}), (v5:Vehiculo {modelo:"Silvia S14"})
+CREATE (c4)-[:COMPRA {año:2005}]->(v5);
+
+MATCH (c5:Cliente {nombre:'Sofia'}), (v6:Vehiculo {modelo:"Skyline GT-R R34"}), (v7:Vehiculo {modelo:"AE86"})
+CREATE (c5)-[:COMPRA {año:2015}]->(v6),
+       (c5)-[:COMPRA {año:2000}]->(v7);
 
 
-//Modelos que ha comprado un cliente
+//CONSULTAS
+
+2.Clientes que han comprado un modelo de vehículo específico
+
+MATCH (c:Cliente)-[:COMPRA]->(v:Vehiculo {modelo:"Skyline GT-R R34"})
+RETURN c;
+
+5. Encontrar todos modelos con precio superior a un valor dado
+MATCH (v:Vehiculo)
+WHERE v.precio > 2500000
+RETURN v.modelo
